@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exercício com for</title>
+
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        </style>
+        
+    </head>
+    <body>
+
+        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+        
+        <div class="resultado"></div>
+
+
+        <script>
+
+            const div = document.querySelector('.resultado');
+            const createDiv = document.createElement('div');
+
+            const elementos = [
+                {tag: 'p', texto: 'Frase 1'},
+                {tag: 'div', texto: 'Frase 2'},
+                {tag: 'footer', texto: 'Frase 3'},
+                {tag: 'section', texto: 'Frase 4'}
+            ];
+
+            for (let i = 0; i < elementos.length; i++) {
+                let {tag, texto} = elementos[i];
+                let createTag = document.createElement(tag);
+                createTag.innerText = texto;
+                createDiv.appendChild(createTag);
+            }
+
+            div.appendChild(createDiv);
+
+
+        </script>
+    </body>
+</html>

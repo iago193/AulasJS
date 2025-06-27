@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <div class="exibir"></div>
+
+        <script>
+
+            function meuEscopo() {
+                const exibir = document.querySelector('.exibir');
+                
+                const data = new Date();
+                const dia = data.getDate().toString().padStart(2, '0');
+                const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+                const ano = data.getFullYear();
+                const hora = data.getHours().toString().padStart(2, '0');
+                const minutos = data.getMinutes().toString().padStart(2, '0');
+                const segundos = data.getSeconds().toString().padStart(2, '0');
+                const diaSemana = data.getDay();
+
+                let diaSemanaTexto;
+
+
+                switch (diaSemana) {
+                    case 0:
+                        diaSemanaTexto = 'Domingo';
+                        break;
+                    case 1:
+                        diaSemanaTexto = 'Segunda-feira';
+                        break;
+                    case 2:
+                        diaSemanaTexto = 'Terça-feira';
+                        break;
+                    case 3:
+                        diaSemanaTexto = 'Quarta-feira';
+                        break;
+                    case 4:
+                        diaSemanaTexto = 'Quinta-feira';
+                        break;
+                    case 5:
+                        diaSemanaTexto = 'Sexta-feira';
+                        break;
+                    case 6:
+                        diaSemanaTexto = 'Sábado';
+                        break;
+                }
+                // Exibir os dados na tela
+                exibir.innerHTML = `<p>Dia: ${dia}</p>
+                                    <p>Mês: ${mes}</p>
+                                    <p>Ano: ${ano}</p>
+                                    <p>Hora: ${hora}</p>
+                                    <p>Minutos: ${minutos}</p>
+                                    <p>Segundos: ${segundos}</p>
+                                    <p>Dia da semana: ${diaSemanaTexto}</p>`;
+            }
+
+            meuEscopo()
+        </script>
+    </body>
+</html>

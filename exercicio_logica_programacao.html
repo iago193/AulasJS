@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exercício Lógica de programação</title>
+    </head>
+    <body>
+        
+
+
+        <script>
+
+            // 1. Crie uma função que recebe dois números e retorna o maior deles.
+            // Dica: Utilize o operador ternário para simplificar a lógica.
+            
+            /*
+            function retorno(num1, num2) {
+                return num1 > num2 ? num1 : num2;
+            }
+
+            console.log(retorno(40, 35));
+            */
+
+
+
+            
+
+
+            // 2. Crie uma função que verifica se uma imagem está em modo paisagem ou retrato.
+            // A função deve receber dois parâmetros: largura e altura da imagem.
+
+            /*
+            const ePaisagem = (largura, altura) => {
+                return largura > altura;
+            }
+
+            let resultado = ePaisagem(1920, 1080);
+
+            if (resultado) {
+                console.log("É paisagem");
+            } else {
+                console.log("Não é paisagem");
+            }
+            */
+
+            function fizzBuzz(numero) {
+
+
+                if ( typeof numero !== 'number') {
+                    return "Não é um número";
+                }
+
+                if (numero % 3 === 0 && numero % 5 === 0 ) {
+                    return 'fizzBuzz';
+                } else if (numero % 3 === 0) {
+                    return 'fizz';
+                } else if (numero % 5 === 0) {
+                    return 'buzz';
+                } else {
+                    return numero;
+                }
+            }
+
+            console.log(fizzBuzz(30));
+
+        </script>
+    </body>
+</html>
