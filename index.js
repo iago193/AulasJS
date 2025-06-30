@@ -1,11 +1,9 @@
 
 
-function mostrarHoraAtual() {
-    let data = new Date();
+const pessoa = {
+    falar: (texto) => {
+        console.log(texto);
+    },
+};
 
-    return data.toLocaleDateString('pt-BR', {
-        hour12: false,
-    })
-}
-
-console.log(mostrarHoraAtual());
+pessoa.falar('Olá, tudo bem? iago');
