@@ -1,9 +1,11 @@
 
+function nome() {
+    const nome = 'iago';
+    return function() {
+        return nome;
+    }
+}
 
-const pessoa = {
-    falar: (texto) => {
-        console.log(texto);
-    },
-};
+const n = nome();
 
-pessoa.falar('Olá, tudo bem? iago');
+console.log(n());
