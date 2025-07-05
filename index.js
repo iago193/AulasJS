@@ -1,21 +1,27 @@
 
-
-const numeros = [1, 2, 3, 4, 5, 6, 7, 8];
-
-const numerosPares = numeros.filter( (valor) => {
-    return valor % 2 === 0; //[ 2, 4, 6, 8 ] + [ 4, 8, 12, 16 ] = 40
-}).map( (valor) => {
-    return valor * 2;
-}).reduce((acumulador, valor) => {
-    return acumulador + valor;
-});
-
-//console.log(numerosPares);
+// Factory functions
+const pessoa = {
+    nome: 'iago',
+    sobreNome: 'bruno',
+    idade: '28',
+    sexo: 'masculino',
+    acaoFalar() {
+        return `Olá, meu nome é ${this.nome} ${this.sobreNome}`;
+    }
+};
 
 
-numeros.forEach((valor) => {
-    console.log(`Valores: ${valor}`);
-});
+// Constructor functions
+function Pessoa(nome, sobreNome, idade,) {
+    this.nome = nome;
+    this.sobreNome = sobreNome;
+    this.idade = idade;
+    this.falar = () => {
+        return `olá meu nome e ${this.nome} ${this.sobreNome}`
+    }
+}
+const pessoa1 = new Pessoa('iago', 'bruno', 28);
+console.log(pessoa1.falar());
 
 
 
