@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
 
@@ -67,13 +69,53 @@
                 console.log(pessoa);
                 const resultado = document.querySelector('.resultado');
                 resultado.innerHTML += `<p>${pessoa.nome} ${pessoa.sobrenome} pesa ${pessoa.peso} kg e tem ${pessoa.altura} m de altura.</p>`;
-            }); 
+            });
 
         }
 
         meuEscopo();
 
+
+
+
+
+
+
+
+
+
+
+
+
+        const numeros = ['iago', 2, 3, 4, 5];
+
+        const filtro = numeros.filter((valor) => {
+            return valor === 'iago';
+        });
+
+
+        const pessoas = [
+            { nome: 'iago', idade: 20 },
+            { nome: 'joao', idade: 25 },
+            { nome: 'maria', idade: 30 }
+        ];
+
+        const filtroPessoas = pessoas.filter((valor) => {
+            return valor.nome.toLocaleLowerCase().endsWith('a');
+        });
+
+        const ids = pessoas.map((valor, indice) => {
+            const newObg = { ...valor }
+            newObg.id = indice === 0 ? 1 : indice;
+            return newObg;
+        })
+
+        console.log(ids);
+
+        console.log(filtroPessoas);
+
     </script>
-    
+
 </body>
+
 </html>
