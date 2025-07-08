@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validar form</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: block;
+            margin: 0 auto;
+            width: 500px;
+            margin-top: 10%;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            margin: 0 auto;
+            padding: 5px;
+            border-radius: 15px;
+            border: none;
+        }
+
+        .input-group input {
+            background-color: #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            outline: none;
+            border: none;
+        }
+
+        form button {
+            display: block;
+            width: 90%;
+            padding: 10px;
+            font-size: 1.0em;
+            margin: 0 auto;
+            margin-top: 10px;
+            border-radius: 8px;
+            color: #ffffff;
+            border: none;
+            background-color: rgb(0, 145, 182);
+        }
+
+        form button:hover {
+            cursor: pointer;
+            background-color: rgb(0, 124, 155);
+        }
+
+        .error-text {
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <form action="/" method="post" class="form">
+        <h2>Formulário de cadastro</h2>
+        <div class="input-group">
+            <label for="">Nome:</label>
+            <input class="nome validar" type="text" placeholder="nome">
+        </div>
+        <div class="input-group">
+            <label for="">Sobrenome:</label>
+            <input class="sobrenome validar" type="text" placeholder="Sobrenome">
+        </div>
+        <div class="input-group">
+            <label for="">CPF:</label>
+            <input class="cpf validar" type="text" placeholder="CPF">
+        </div>
+        <div class="input-group">
+            <label for="">Usuário:</label>
+            <input class="usuario validar" type="text" placeholder="Usuário">
+        </div>
+        <div class="input-group">
+            <label for="">senha:</label>
+            <input class="senha validar" type="password" placeholder="senha">
+        </div>
+        <div class="input-group">
+            <label for="">Repetir senha:</label>
+            <input class="repetirSenha validar" type="password" placeholder="Repetir senha">
+        </div>
+        <div>
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+
+
+    <script>
+
+        class ValidarFormulario {
+            constructor() {
+                this.formulario = document.querySelector('.form');
+                this.eventos();
+            }
+
+            eventos() {
+                this.formulario.addEventListener('submit', (e) => {
+                    this.handleSubmit(e);
+                    this.validarSenha();
+                });
+            }
+
+            handleSubmit(e) {
+                e.preventDefault();
+                const validarCampos = this.validarCamposInput();
+
+                if (this.validarCamposInput() && this.validarSenha()) {
+                    this.formulario.submit();
+                    alert('Fomulário enviado');
+                }
+
+            }
+
+            validarCamposInput() {
+                let valid = true;
+
+                for (let removerText of this.formulario.querySelectorAll('.error-text')) {
+                    removerText.remove();
+                }
+
+                for (let campos of this.formulario.querySelectorAll('.validar')) {
+                    const label = campos.previousElementSibling.innerText;
+
+                    if (!campos.value) {
+                        this.createError(campos, `*Campo ${label} não pode estar vazio!`);
+                        valid = false;
+                    }
+
+                    if (campos.classList.contains('cpf')) {
+                        if (!this.validaCpf(campos)) valid = false;
+                    }
+
+
+                    if (campos.classList.contains('usuario')) {
+                        if (!this.validaUsuario(campos)) valid = false;
+                    }
+
+
+                    if (campos.classList.contains('nome')) {
+                        if (!this.validaNome(campos)) valid = false;
+                    }
+                }
+
+                return valid;
+            }
+
+            validaNome(campo) {
+                if (campo.value.length < 6 || campo.value.length > 25) {
+                    this.createError(campo, '*O nome deve ter entre 6 e 25 caracteres.');
+                    return false;
+                }
+
+                return true;
+            }
+
+            validaUsuario(campo) {
+                if (campo.value.length < 3 || campo.value.length > 12) {
+                    this.createError(campo, '*Usuário deve ter entre 3 e 12 caracteres.');
+                    return false;
+                }
+
+                return true;
+            }
+
+
+            validaCpf(campo) {
+                const cpfObj = new ValidarCpf(campo.value);
+
+                if (!cpfObj.valida()) {
+                    this.createError(campo, '*CPF inválido');
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+
+            createError(campo, text) {
+                const div = document.createElement('div');
+                div.innerHTML = text;
+                div.classList.add('error-text');
+                campo.insertAdjacentElement('afterend', div);
+            }
+
+            validarSenha() {
+                let valid = true;
+
+                const campoSenha = this.formulario.querySelector('.senha');
+                const campoRepetir = this.formulario.querySelector('.repetirSenha');
+
+                const senha = campoSenha.value;
+                const repetir = campoRepetir.value;
+
+                if (senha === '' || repetir === '') return true;
+
+                if (senha !== repetir) {
+                    this.createError(campoSenha, '*As senhas não são iguais!');
+                    this.createError(campoRepetir, '*As senhas não são iguais!');
+                    valid = false;
+                }
+
+                return valid;
+            }
+
+        }
+
+
+
+        class ValidarCpf {
+            constructor(cpfEnviado) {
+                Object.defineProperty(this, 'cpfLimpo', {
+                    writable: false,
+                    enumerable: true,
+                    configurable: true,
+                    value: cpfEnviado.replace(/\D+/g, '')
+                });
+            }
+
+            geraNovoCpf() {
+                const cpfSemDigito = this.cpfLimpo.slice(0, -2);
+                const digito1 = ValidarCpf.geraDigito(cpfSemDigito);
+                const digito2 = ValidarCpf.geraDigito(cpfSemDigito + digito1);
+                this.novoCpf = cpfSemDigito + digito1 + digito2;
+            }
+
+            static geraDigito(cpfSemDigitos) {
+                let total = 0;
+                let reverso = cpfSemDigitos.length + 1;
+
+                for (let stringNumerica of cpfSemDigitos) {
+                    total += reverso * Number(stringNumerica);
+                    reverso--;
+                }
+
+                const digito = 11 - (total % 11);
+                return digito <= 9 ? String(digito) : '0';
+            }
+
+            valida() {
+                if (!this.cpfLimpo) return false;
+                if (typeof this.cpfLimpo !== 'string') return false;
+                if (this.cpfLimpo.length !== 11) return false;
+                this.geraNovoCpf();
+
+                return this.novoCpf === this.cpfLimpo;
+            }
+        }
+
+        const valida = new ValidarFormulario();
+
+    </script>
+</body>
+
+</html>
