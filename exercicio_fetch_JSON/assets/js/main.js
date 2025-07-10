@@ -1,43 +1,27 @@
+fetch('pessoas.json')
+  .then(resposta => resposta.json())
+  .then(json => carregaElementosNaPagina(json));
 
+// axios('pessoas.json')
+//   .then(resposta => carregaElementosNaPagina(resposta.data));
 
-document.addEventListener('click', (e) => {
-    const el = e.target;
-    const tag = el.tagName.toLowerCase();
+function carregaElementosNaPagina(json) {
+  const table = document.createElement('table');
 
-    if (tag === 'a') {
-        e.preventDefault();
-        carregaPagina(el);
-    }
-});
+  for(let pessoa of json) {
+    const tr = document.createElement('tr');
 
-async function carregaPagina(el) {
+    let td1 = document.createElement('td');
+    td1.innerHTML = pessoa.nome;
+    tr.appendChild(td1);
 
-    try {
-        const herf = el.getAttribute('href');
-        const response = await fetch(herf);
+    let td2 = document.createElement('td');
+    td2.innerHTML = pessoa.idade;
+    tr.appendChild(td2);
 
-        if (response.status !== 200) throw new Error('Meu erro');
+    table.appendChild(tr);
+  }
 
-        const html = await response.text();
-        carregaResultado(html);
-    } catch (e) {
-        console.log(e);
-    }
-
-    // fetch(herf)
-    //     .then((response) => {
-    //         if(response.status !== 200) throw new Error('Meu erro');
-    //         return response.text();
-    //     })
-    //     .then((html) => {
-    //         carregaResultado(html);
-    //     })
-    //     .catch((e) => {
-    //         console.warn(e);
-    //     });
-}
-
-function carregaResultado(response) {
-    const resultado = document.querySelector('#resultado');
-    resultado.innerHTML = response;
+  const resultado = document.querySelector('.resultado');
+  resultado.appendChild(table);
 }
