@@ -10,6 +10,11 @@ export function exibir(caminhoArquivo) {
 
         const pessoasObj = JSON.parse(data);
         const pessoas = pessoasObj;
+
         console.log(pessoas);
+        
+        for(let pessoa of pessoas) {
+            console.log(pessoa.nome);
+        }
     });
 }
