@@ -1,0 +1,27 @@
+[
+  {
+    "nome": "Iago",
+    "sobreNome": "Bruno",
+    "sexo": "Masculino"
+  },
+  {
+    "nome": "Teste",
+    "sobreNome": "Bruno",
+    "sexo": "Masculino"
+  },
+  {
+    "nome": "Monica",
+    "sobreNome": "Nunes",
+    "sexo": "Feminino"
+  },
+  {
+    "nome": "Maria",
+    "sobreNome": "Alves",
+    "sexo": "Feminino"
+  },
+  {
+    "nome": "João",
+    "sobreNome": "Alves",
+    "sexo": "Masculino"
+  }
+]
