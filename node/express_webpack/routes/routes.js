@@ -6,6 +6,7 @@ import { tratarPost } from '../src/controllers/homeController.js';
 const route = express.Router();
 
 route.get('/', paginaInicial);
+
 route.get('/contato', paginaInicialContato);
 
 route.post('/', tratarPost);

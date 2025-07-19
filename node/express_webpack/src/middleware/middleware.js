@@ -1,4 +1,4 @@
 export function  middleware(req, res, next) {
-    console.log('passei no middleware');
+    res.locals.umaVariavelLocal = 'um teste de variavel local';
     next();
 }

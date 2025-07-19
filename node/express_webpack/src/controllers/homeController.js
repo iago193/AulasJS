@@ -1,16 +1,11 @@
-// import HomeModel from "../model/homeModel.js";
 
-// HomeModel.create({   //HomeModel.find() para buscar dados
-//     titulo: 'Um teste',
-//     descricao: 'Descrição'
-// }).then((dados) => {
-//     console.log(dados);
-// }).catch((e) => {
-//     console.log(e);
-// });
 
 export function paginaInicial(req, res) {
-    res.render('index');
+    req.session.usuario = {nome: 'iago', logado: true};
+    console.log(req.session.usuario);
+    res.render('layout', {
+        title: 'Document express'
+    });
 }
 
 export function tratarPost(req, res) {
