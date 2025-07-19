@@ -8,11 +8,14 @@ import flash from 'connect-flash';
 import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
+import helmet from 'helmet';
+import csrf from 'csurf';
+
+import { middleware, checkCsrfError, csrfMiddleware } from './src/middleware/middleware.js';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { middleware } from './src/middleware/middleware.js';
-import { Router } from './routes/routes.js';
+import { Router } from './routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -45,7 +48,14 @@ mongoose.connect(process.env.MONGO_URI, {
   app.set('views', path.join(__dirname, './src/views'));
   app.set('view engine', 'ejs');
 
+  app.use(helmet());
+
+  app.use(csrf());
+  app.use(checkCsrfError);   // primeiro o tratador de erro
+  app.use(csrfMiddleware);   // depois o middleware que injeta o token
+
   app.use(middleware);
+  
   app.use(Router);
 
   app.listen(3000, () => {
