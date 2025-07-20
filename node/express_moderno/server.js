@@ -26,10 +26,10 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => {
   console.log('✅ Conectado ao MongoDB com Mongoose');
 
-  // ✅ Configuração correta da sessão com Mongo
+
   const sessionOption = session({
     secret: 'teste secrete',
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // <- aqui está o segredo
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -51,8 +51,8 @@ mongoose.connect(process.env.MONGO_URI, {
   app.use(helmet());
 
   app.use(csrf());
-  app.use(checkCsrfError);   // primeiro o tratador de erro
-  app.use(csrfMiddleware);   // depois o middleware que injeta o token
+  app.use(checkCsrfError);
+  app.use(csrfMiddleware);
 
   app.use(middleware);
   
