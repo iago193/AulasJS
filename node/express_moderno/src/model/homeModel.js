@@ -12,4 +12,4 @@ class Model {
   
 }
 
-export default HomeModel;
+export default Model;
