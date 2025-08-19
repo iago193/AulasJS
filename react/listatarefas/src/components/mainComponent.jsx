@@ -1,22 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Form from "./Form";
+import Ul from "./Task";
 import './mainComponent.css';
 
-//icons
-import { IoMdCreate, IoMdTrash } from "react-icons/io";
-
 function MainComponente() {
+    // Estado tarefas, carregando do localStorage na inicialização
+    const [tarefas, setTarefas] = useState(() => {
+        const tarefasSalvas = localStorage.getItem("tarefas");
+        return tarefasSalvas ? JSON.parse(tarefasSalvas) : [];
+    });
+
+    // Salva tarefas no localStorage sempre que elas mudarem
+    useEffect(() => {
+        localStorage.setItem("tarefas", JSON.stringify(tarefas));
+    }, [tarefas]);
+
+    // Estado para o input da nova tarefa
     const [tarefa, setTarefa] = useState("");
-    const [tarefas, setTarefas] = useState([]);
+
+    // Estados para edição
+    const [editandoIndice, setEditandoIndice] = useState(null);
+    const [editandoTexto, setEditandoTexto] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
 
         if (tarefa.trim() === "") return;
 
-        console.log(tarefa);
+        if (tarefas.indexOf(tarefa) !== -1) {
+            alert(`Tarefa ${tarefa} já existe.`);
+            return;
+        }
 
         setTarefas([...tarefas, tarefa]);
         setTarefa("");
+    }
+
+    const deletTarefa = (indice) => {
+        setTarefas(tarefas.filter((_, i) => i !== indice));
+    }
+
+    const iniciarEdicao = (indice) => {
+        setEditandoIndice(indice);
+        setEditandoTexto(tarefas[indice]);
+    }
+
+    const salvarEdicao = () => {
+        if (editandoTexto.trim() === "") {
+            alert("A tarefa não pode ficar vazia");
+            return;
+        }
+
+        const novasTarefas = [...tarefas];
+        novasTarefas[editandoIndice] = editandoTexto;
+        setTarefas(novasTarefas);
+
+        setEditandoIndice(null);
+        setEditandoTexto("");
+    }
+
+    const cancelarEdicao = () => {
+        setEditandoIndice(null);
+        setEditandoTexto("");
     }
 
     return (
@@ -24,24 +69,24 @@ function MainComponente() {
             <div className="main">
                 <h1>lista de tarefas</h1>
 
-                <form onSubmit={handleSubmit} action="#">
-                    <input type="text"
-                        value={tarefa}
-                        onChange={e => setTarefa(e.target.value)}
-                    />
-                    <button type="submit">Confirm</button>
-                </form>
+                <Form
+                    tarefa={tarefa}
+                    setTarefa={setTarefa}
+                    handleSubmit={handleSubmit}
+                />
 
-                <ul>
-                    {tarefas.map((tarefa, indice) => (
-                        <li key={indice}> {tarefa} 
-                            <div className="btn-list">
-                                <button className="btn-edit" type="button">< IoMdCreate /></button>
-                                <button className="btn-delet" type="button">< IoMdTrash /></button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                <Ul
+                    tarefas={tarefas}
+                    editandoIndice={editandoIndice}
+                    editandoTexto={editandoTexto}
+                    setEditandoTexto={setEditandoTexto}
+                    iniciarEdicao={iniciarEdicao}
+                    salvarEdicao={salvarEdicao}
+                    cancelarEdicao={cancelarEdicao}
+                    deletTarefa={deletTarefa}
+                />
+
+
             </div>
         </div>
     );

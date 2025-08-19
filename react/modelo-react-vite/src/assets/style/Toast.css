@@ -1,0 +1,17 @@
+@import './Variables.css';
+
+.toast-container .Toastify__toast {
+  background-color: var(--primary-color);
+  color: white;                          
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 1rem;
+}
+
+.toast-container .Toastify__toast--success { background-color: var(--successColor); }
+.toast-container .Toastify__toast--error { background-color: var(--errorColor); }
+.toast-container .Toastify__toast--warning { background-color: var(--warningColor); }
+.toast-container .Toastify__toast--info { background-color: var(--inforColor); }
+
+.toast-container .Toastify__progress-bar { background: var(--warningColor); }

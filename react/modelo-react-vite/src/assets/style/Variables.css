@@ -1,0 +1,11 @@
+:root {
+  --cor-primaryColor: #e00f44;
+  --cor-darkColor: #1d1a1a;
+
+        /* toast */
+  --successColor: #107418;
+  --warningColor: #b8ad1d;
+  --errorColor: #e00f44;
+  --progresBarColor: #b85b1d;
+  --inforColor: #1d28b6;
+}

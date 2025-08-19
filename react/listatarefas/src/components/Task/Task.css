@@ -1,0 +1,39 @@
+ul {
+    list-style: none;
+    text-align: justify;
+}
+
+ul li {
+    display: flex;
+    gap: 20px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+ul li:hover {
+    background-color: #38dae6;
+    cursor: pointer;
+    color: #0a0a0a;
+}
+
+.btn-list {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.btn-list button {
+    font-size: 1em;
+    margin-left: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.btn-edit {
+    color: #5238e6;
+}
+
+.btn-delet {
+    color: #e63872;
+}
